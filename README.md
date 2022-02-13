@@ -73,4 +73,79 @@ A palavra reservado **yield** pausa a função e executa o restante quando a fun
 
 Eu posso passar um valor na chamada da função e recuperar pelo **yield**;
 
-Usando generators torna-se mais simples ainda trabalhar com metadados e transforma um objeto em um objeto iterável
+Usando generators torna-se mais simples ainda trabalhar com metadados e transforma um objeto em um objeto iterável;
+
+## Call back e promises
+
+Antes do  ES6 era extremamente verboso e de difícil manutenção lidar com callback functions;
+```js
+function doSomething(callback) {
+  setTimeout(function() {
+    // did something
+    callback('First data');
+  }, 1000);
+}
+
+function doOtherThing (callback) {
+  setTimeout(function() {
+    // did other thing
+    callback('Second data');
+  }, 1000);
+}
+
+function doAll() {
+  try {
+    doSomething(function(data) {
+      var processedData = data.split('');
+      try {
+        doOtherThing(function(data2) {
+          var processedData2 = data2.split('');
+
+          try {
+            setTimeout(function() {
+              console.log(processedData, processedData2);
+            }, 1000);
+          } catch (err) {
+            // handle error
+          }
+        });
+      } catch(err) {
+        // handle error
+      }
+    });
+  } catch (err){
+    // handle error
+  }
+}
+
+doAll();
+```
+
+Primises tem 3 estados: **pending, fulfilled e rejected**;
+
+- Pending: Está em execução
+- Fulfilled: Quando terminou de executar
+- rejected: Caso ocorra algum erro
+
+```js
+console.log(doSomethingPromise); // pending
+```
+Para executar uma promise usa-se a função **.then**;
+
+```js
+doSomethingPromise(console.log(data)); // some text
+```
+
+Para tratar o erro usa-se a função **.catch(() => {})**. Sendo assim o try catch não é necessário;
+
+Promises podem ser encadeadas, bastar passar a segunda no .then da primeira e passar mais um .then  para a segunda;
+
+Promises são executadas de forma sequência, mas pode-se chamar várias usando o médodo **Promise.all**;
+
+```js
+Promise.all([soSomethingPromise(), doOtherThingPromise()]).then(data => console.log(data));
+```
+
+Ao usar o Promise.all se houver alguma promise com erro não será executada nenhuma;
+
+Uma outra alternativa para lidar com múltiplas promises é é usando o método **Promise.race**. Esse método irá executar a promise que resolver primeiro.
