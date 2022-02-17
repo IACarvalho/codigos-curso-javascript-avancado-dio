@@ -149,3 +149,32 @@ Promise.all([soSomethingPromise(), doOtherThingPromise()]).then(data => console.
 Ao usar o Promise.all se houver alguma promise com erro não será executada nenhuma;
 
 Uma outra alternativa para lidar com múltiplas promises é é usando o método **Promise.race**. Esse método irá executar a promise que resolver primeiro.
+
+## Async await
+É uma forma de criar promises de maneira mais simples, e de lidar com promises encadeadas de maneira simples e enxuta.
+
+O **async** normalmente vem acompanhado do **await**, que serve para forçar a aguardar que a promise seja resolvida.
+
+## EventEmitter
+ *Funciona apenas no NodeJS*
+Para usa o **EventEmitter** basta importar o módulo nativo do NodeJS **events**
+
+```js
+const EventEmitter = require('events')
+const eventEmitter = EventEmitter()
+```
+
+O objeto instanciado tem, além de vários outros, os métodos **on** e **emit**
+
+* emit -> É usado para "triggar" o evento.
+* on -> É usado para criar uma função callback que será chamada quando o evento for "triggado"
+
+```js
+eventEmitter.on('start', () => {
+  console.log('started')
+})
+
+eventEmitter.emit('start')
+```
+
+*É possível também passar dados como parâmetro do emit*
