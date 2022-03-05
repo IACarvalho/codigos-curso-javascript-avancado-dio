@@ -1,0 +1,14 @@
+{
+  "name": "Sinon",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "test": "mocha"
+  },
+  "devDependencies": {
+    "chai": "^4.3.6",
+    "mocha": "^9.2.1",
+    "sinon": "^13.0.1"
+  }
+}
